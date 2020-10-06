@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileFollowController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,11 +22,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', [HomeController::class, 'index']);
 
-Route::resource('profile', 'ProfileController');
-Route::resource('post', 'PostController');
+Route::resource('profile', ProfileController::class);
+Route::resource('post', PostController::class);
 
 // follow/unfollow
-Route::post('/follow/{profile}', 'ProfileFollowController@store');
+Route::post('/follow/{profile}', [ProfileFollowController::class, 'store']);
 // Route::delete('/follow/{id}', 'ProfileFollowController@destroy');
