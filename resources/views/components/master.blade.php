@@ -18,13 +18,6 @@
     <script src="{{ asset('js/app.js') }}" defer>
     </script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch"
-        href="//fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito"
-        rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('css/tailwind.css') }}"
         rel="stylesheet">
@@ -32,29 +25,49 @@
 
 <body>
     <div id="app">
-        <header>
-            <a href="{{ route('login') }}">
-                {{ __('Login') }}
-            </a>
-            <a href="{{ route('register') }}">
-                {{ __('Register') }}
-            </a>
-            <a href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-            </a>
+        <header class="h-20 p-6 pb-4 shadow">
+            <div class="flex justify-between items-center">
 
-            <form id="logout-form"
-                action="{{ route('logout') }}"
-                method="POST"
-                style="display: none;">
-                @csrf
-            </form>
+                <div class="flex items-center">
+                    <h1
+                        class="mr-4 text-2xl font-semibold uppercase">
+                        Insta-Clone
+                    </h1>
+
+                    <nav class="text-sm text-gray-700">
+                        <a href="#">Home</a>
+                    </nav>
+                </div>
+
+                <div class="text-sm text-gray-700">
+                    <a
+                        href="{{ route('login') }}">
+                        {{ __('Login') }}
+                    </a>
+                    <a
+                        href="{{ route('register') }}">
+                        {{ __('Register') }}
+                    </a>
+
+                    @auth
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"
+                        >{{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form"
+                        action="{{ route('logout') }}"
+                        method="POST"
+                        style="display: none;">
+                        @csrf
+                    </form>
+                    @endauth
+                </div>
+            </div>
         </header>
-        <main class="py-12 px-8 bg-red-400">
-            <div
-                class="container mx-auto h-screen">
+        <main class="h-screen py-12 px-8">
+            <div class="p-4 container mx-auto rounded shadow">
                 {{ $slot }}
             </div>
         </main>

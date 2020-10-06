@@ -1,5 +1,4 @@
 <x-master>
-
     <form method="POST"
         action="{{ route('register') }}">
         @csrf
