@@ -35,22 +35,28 @@
                     </h1>
 
                     <nav class="text-sm text-gray-700">
-                        <a href="#">Home</a>
+                        <a
+                        class="hover:text-teal-500"
+                        href="/dashboard">Home</a>
                     </nav>
                 </div>
 
                 <div class="text-sm text-gray-700">
                     <a
+                    class="mr-2 hover:text-teal-500"
                         href="{{ route('login') }}">
                         {{ __('Login') }}
                     </a>
                     <a
+                    class="hover:text-teal-500"
                         href="{{ route('register') }}">
                         {{ __('Register') }}
                     </a>
 
                     @auth
-                    <a href="{{ route('logout') }}"
+                    <a
+                    class="hover:text-teal-500"
+                    href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();"
                         >{{ __('Logout') }}
@@ -66,8 +72,8 @@
                 </div>
             </div>
         </header>
-        <main class="h-screen py-12 px-8">
-            <div class="p-4 container mx-auto rounded shadow">
+        <main class="h-screen p-8">
+            <div class="p-4 container mx-auto">
                 {{ $slot }}
             </div>
         </main>

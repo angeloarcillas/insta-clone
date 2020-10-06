@@ -1,11 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public function user()
@@ -27,7 +30,7 @@ class Profile extends Model
     // {
     //     $this->decrement('followers_count');
     // }
-    
+
     public function followers()
     {
       return $this->belongsToMany(User::class);
