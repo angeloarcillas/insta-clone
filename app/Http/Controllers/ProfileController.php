@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Profile;
-use App\User;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -33,34 +33,7 @@ class ProfileController extends Controller
         // check if following contains $profile
         $follows = (auth()->user()) ? auth()->user()->following->contains($profile) : false;
 
-        /*------------------------
-        CACHE remember('key','value','time','callback');
-        -------------------------*/
-        $postCount = \Cache::remember(
-            'count.posts.' . $profile->user_id,
-            now()->addSeconds(30),
-            function () use ($profile) {
-                return $profile->user->posts->count();
-            }
-        );
-
-        $followersCount = \Cache::remember(
-            'count.followers.' . $profile->user_id,
-            now()->addSeconds(1),
-            function () use ($profile) {
-                return $profile->followers->count();
-            }
-        );
-
-        $followingCount = \Cache::remember(
-            'count.following.' . $profile->user_id,
-            now()->addSeconds(1),
-            function () use ($profile) {
-                return $profile->user->following->count();
-            }
-        );
-
-        return view('profile.show', compact('profile', 'follows', 'postCount', 'followersCount', 'followingCount'));
+        return view('profile.show', compact('profile', 'follows'));
     }
 
     public function edit(Profile $profile)

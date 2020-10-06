@@ -14,4 +14,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function path($append = 'index')
+    {
+      return route("posts.{$append}", $this->id);
+    }
 }

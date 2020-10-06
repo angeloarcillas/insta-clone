@@ -30,30 +30,45 @@
 
                 <div class="flex items-center">
                     <h1
-                        class="mr-4 text-2xl font-semibold uppercase">
-                        Insta-Clone
+                      class="mr-4 text-2xl font-semibold uppercase">
+                      Insta-Clone
                     </h1>
-
+                    @auth
                     <nav class="text-sm text-gray-700">
-                        <a
+                      <a
+                        class="mr-2 hover:text-teal-500"
+                        href="/home"
+                        >Home
+                      </a>
+                      <a
+                        class="mr-2 hover:text-teal-500"
+                        href="/profile/{{ auth()->user()->id }}"
+                        >Proile
+                      </a>
+                      <a
                         class="hover:text-teal-500"
-                        href="/dashboard">Home</a>
+                        href="/post"
+                        >Post
+                      </a>
                     </nav>
-                </div>
+                    @endauth
+                  </div>
 
                 <div class="text-sm text-gray-700">
-                    <a
+                  @guest
+                  <a
                     class="mr-2 hover:text-teal-500"
-                        href="{{ route('login') }}">
-                        {{ __('Login') }}
-                    </a>
-                    <a
+                    href="{{ route('login') }}">
+                    {{ __('Login') }}
+                  </a>
+                  <a
                     class="hover:text-teal-500"
-                        href="{{ route('register') }}">
-                        {{ __('Register') }}
-                    </a>
+                    href="{{ route('register') }}">
+                    {{ __('Register') }}
+                  </a>
+                  @endguest
 
-                    @auth
+                  @auth
                     <a
                     class="hover:text-teal-500"
                     href="{{ route('logout') }}"
