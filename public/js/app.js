@@ -1916,6 +1916,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // vue props
   props: ['userId', 'follows'],
@@ -1924,21 +1927,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      status: this.follows // true/false
-
+      status: this.follows
     };
   },
   methods: {
     followUser: function followUser() {
       var _this = this;
 
-      axios.post('/follow/' + this.userId) // success
-      .then(function (response) {
-        _this.status = !_this.status; // true/false
-
+      axios.post('/follow/' + this.userId).then(function (response) {
+        _this.status = !_this.status;
         console.log(response.data);
-      }) // error
-      ["catch"](function (errors) {
+      })["catch"](function (errors) {
         console.log(errors);
 
         if (errors.response.status == 401) {
@@ -37539,11 +37538,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("button", {
-      staticClass: "btn btn-primary btn-sm",
-      domProps: { textContent: _vm._s(_vm.buttonText) },
-      on: { click: _vm.followUser }
-    })
+    _c(
+      "button",
+      {
+        staticClass:
+          "px-2 py-1 text-xs text-teal-500 border\n    border-teal-500 rounded-full hover:bg-teal-500 hover:text-white",
+        on: { click: _vm.followUser }
+      },
+      [_vm._v("\n    " + _vm._s(_vm.buttonText) + "\n  ")]
+    )
   ])
 }
 var staticRenderFns = []

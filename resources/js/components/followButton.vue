@@ -1,9 +1,12 @@
-
-
 <template>
-<div class="container">
-    <button class="btn btn-primary btn-sm" @click="followUser" v-text="buttonText"></button>
-</div>
+  <div class="container">
+    <button
+      class="px-2 py-1 text-xs text-teal-500 border
+      border-teal-500 rounded-full hover:bg-teal-500 hover:text-white"
+      @click="followUser">
+      {{ buttonText }}
+    </button>
+  </div>
 </template>
 
 <script>
@@ -16,20 +19,18 @@ export default {
     },
     data: function() {
         return {
-            status: this.follows, // true/false
+            status: this.follows,
         }
     },
 
     methods: {
         followUser() {
             axios.post('/follow/' + this.userId)
-                  // success
                 .then(response => {
-                    this.status = !this.status; // true/false
+                    this.status = !this.status;
                     console.log(response.data);
 
                 })
-                  // error
                 .catch(errors => {
                     console.log(errors);
                     if (errors.response.status == 401) {

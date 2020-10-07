@@ -17,10 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::view('/home','home');
 
-Route::resource('profile', ProfileController::class);
-Route::resource('posts', PostController::class);
+Route::middleware('auth')->group(function () {
+    Route::view('/home', 'home');
+    Route::resource('profile', ProfileController::class);
+    Route::resource('posts', PostController::class);
+});
 
 // follow/unfollow
 Route::post('/follow/{profile}', [ProfileFollowController::class, 'store']);
