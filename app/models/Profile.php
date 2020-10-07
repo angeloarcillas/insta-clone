@@ -42,6 +42,10 @@ class Profile extends Model
       return route("profile.{$append}", $this->id);
     }
 
+    public function getAvatarPathAttribute()
+    {
+      return "http://127.0.0.1:8000/{$this->avatar}";
+    }
     public function getPostCountAttribute()
     {
         return Cache::rememberForever(

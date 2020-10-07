@@ -5,7 +5,7 @@
       <div class="flex items-center">
         {{-- image --}}
         <div class="w-1/4">
-        <img src="{{$profile->avatar ?? 'https://picsum.photos/200'}}"
+        <img src="{{$profile->avatar_path ?? 'https://picsum.photos/200'}}"
             alt="profile image"
             class="h-full w-full rounded-full">
         </div>
@@ -47,7 +47,7 @@
             href="#">{{ $profile->url ?? '' }}</a>
           <p
             class="mt-2 mb-6 text-sm text-gray-700">
-            {{ $profile->description ?? '. . .' }}
+            {{ $profile->bio ?? '. . .' }}
           </p>
         </div>
       </div>

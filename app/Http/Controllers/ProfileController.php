@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['show']);
-    }
-
     public function index()
     {
     }
@@ -31,7 +26,7 @@ class ProfileController extends Controller
     {
         // if use logged in  //if user is following else false
         // check if following contains $profile
-        $follows = (auth()->user()) ? auth()->user()->following->contains($profile) : false;
+        $follows = (auth()->user()) ? $profile->user->following->contains($profile) : false;
 
         return view('profile.show', compact('profile', 'follows'));
     }
@@ -42,22 +37,21 @@ class ProfileController extends Controller
         return view('profile.edit', compact('profile'));
     }
 
-    public function update(Profile $profile)
+    public function update(Request $request, Profile $profile)
     {
-        // ->push()
         $this->authorize('update', $profile);
-        $validated = request()->validate([
-          'title' => 'required',
-          'description' => 'required',
+        $attributes = $request->validate([
+          'username' => 'required',
+          'bio' => 'required',
           'url' => 'nullable|url',
-          'profile_img' => 'nullable|image'
+          'avatar' => 'nullable|image'
         ]);
 
-        if (request('profile_img')) {
-            $imagePath = request('profile_img')->store('uploads', 'public');
-            $validated['profile_img'] = $imagePath;
+        if ($request->avatar) {
+            $attributes['avatar'] = $request->file('avatar')->store('uploads');
         }
-        $profile->update($validated);
+
+        $profile->update($attributes);
         return redirect('/profile/'.auth()->user()->id);
 
         /* merge multiple array */
