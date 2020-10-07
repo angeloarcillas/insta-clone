@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::view('/home', 'home');
     Route::resource('posts', PostController::class);
 });
-Route::resource('profile', ProfileController::class);
+Route::resource('profile', ProfileController::class)->only('show', 'edit', 'update');
 
 // follow/unfollow
 Route::post('/follow/{profile}', [ProfileFollowController::class, 'store']);
