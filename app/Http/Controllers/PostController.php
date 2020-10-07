@@ -10,12 +10,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        // show following posts
         $users = auth()->user()->following()->pluck('profiles.user_id');
-
-        // with(relationship)
-        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(1);
-        // $post = Post::whereIn('user_id' ,$user)->orderBy('created_at','DESC')->get();
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(10);
         return view('post.index', compact('posts'));
     }
 
@@ -32,15 +28,8 @@ class PostController extends Controller
         ]);
 
         $attributes['image'] = $request->file('image')->store('uploads');
-        // dd($attributes);
         auth()->user()->posts()->create($attributes);
         return redirect('/profile/' . auth()->user()->id);
-    }
-
-    public function show(Post $post)
-    {
-        //
-        return view('post.show', compact('post'));
     }
 
     public function edit(Post $post)

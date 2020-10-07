@@ -8,26 +8,9 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index()
-    {
-    }
-
-    public function create()
-    {
-        return view('profile.create');
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show(Profile $profile)
     {
-        // if use logged in  //if user is following else false
-        // check if following contains $profile
-        $follows = (auth()->user()) ? $profile->user->following->contains($profile) : false;
-
+        $follows = auth() ? $profile->user->following->contains($profile) : false;
         return view('profile.show', compact('profile', 'follows'));
     }
 
@@ -53,15 +36,5 @@ class ProfileController extends Controller
 
         $profile->update($attributes);
         return redirect('/profile/'.auth()->user()->id);
-
-        /* merge multiple array */
-        // array_merge($data,[
-        //   'key' => 'value'
-        // ])
-    }
-
-    public function destroy(Profile $profile)
-    {
-        //
     }
 }
