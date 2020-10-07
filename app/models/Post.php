@@ -19,4 +19,9 @@ class Post extends Model
     {
       return route("posts.{$append}", $this->id);
     }
+
+    public function getImagePathAttribute()
+    {
+      return 'http://127.0.0.1:8000/' . $this->image;
+    }
 }

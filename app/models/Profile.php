@@ -36,6 +36,11 @@ class Profile extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function path($append = 'index')
+    {
+      return route("profile.{$append}", $this->id);
+    }
+
     public function getPostCountAttribute()
     {
         return \Cache::remember(

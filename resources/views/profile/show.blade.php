@@ -18,10 +18,12 @@
               href="#">{{ $profile->username ?? ''}}</a>
 
             {{-- vue component --}}
+            @auth
             <follow-button class="ml-2"
               user-id="{{ $profile->id }}"
               follows="{{ $follows }}">
             </follow-button>
+            @endauth
           </div>
 
 
@@ -50,17 +52,18 @@
         </div>
       </div>
 
+      @can ('update', $profile)
       <div class="text-right">
-        @can ('update', $profile)
         <a class="mr-2 text-sm text-teal-400 hover:text-teal-500 hover:underline"
-          href="/profile/{{ $profile->id }}/edit">
+          href="{{$profile->path('edit')}}">
           Edit Profile
         </a>
-        @endcan
         <a class="py-2 px-4 text-sm  rounded
-            bg-teal-400 text-white hover:bg-teal-500"
-          href="/posts/create">Create Post</a>
+        bg-teal-400 text-white hover:bg-teal-500"
+          href="{{ route('posts.create') }}">Create
+          Post</a>
       </div>
+      @endcan
     </div>
 
     {{-- button group --}}
@@ -69,35 +72,34 @@
       <button
         class="px-2 py-1 text-gray-700 font-semibold bg-gray-400
         rounded-l border border-gray-400
-        focus:outline-none hover:bg-gray-500"
-        >Post
+        focus:outline-none hover:bg-gray-500">Post
       </button>
       <button
         class="px-2 py-1 font-semibold text-gray-700 border rounded-r border-gray-400
-          focus:outline-none hover:bg-gray-500"
-          >Tagged
+          focus:outline-none hover:bg-gray-500">Tagged
       </button>
     </div>
 
     {{-- post --}}
-  <div class="p-4 rounded shadow">
-    <div class="flex justify-around flex-wrap">
-      @forelse ($profile->user->posts as $post)
-      <div>
-        <img src="/storage/{{ $post->image }}"
-          alt="post image" class="w-full"
-          height="80%">
+    <div class="p-4 rounded shadow">
+      <div class="flex justify-around flex-wrap">
+        @forelse ($profile->user->posts as $post)
+        <div>
+          {{-- {{dd($post->image_path)}} --}}
+          <img src="{{ $post->image_path }}"
+            alt="post image" class="w-full"
+            height="80%">
+          <p
+            class="text-center text-xs text-gray-700">
+            {{$post->caption }}
+          </p>
+        </div>
+        @empty
         <p
-          class="text-center text-xs text-gray-700">
-          {{$post->caption }}
+          class="text-center font-semibold text-gray-700">
+          There are currently no post
         </p>
+        @endforelse
       </div>
-      @empty
-      <p
-        class="text-center font-semibold text-gray-700">
-        There are currently no post
-      </p>
-      @endforelse
     </div>
-  </div>
 </x-master>
