@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Profile extends Model
 {
@@ -43,32 +44,29 @@ class Profile extends Model
 
     public function getPostCountAttribute()
     {
-        return \Cache::remember(
-            'count.posts.' . $this->user_id,
-            now()->addSeconds(30),
+        return Cache::rememberForever(
+            "posts.count.{$this->user_id}",
             function () {
                 return $this->user->posts->count();
             }
         );
     }
 
-    public function getFollowersCountAttributes()
+    public function getFollowersCountAttribute()
     {
-        return \Cache::remember(
-            'count.followers.' . $this->user_id,
-            now()->addSeconds(1),
+        return Cache::rememberForever(
+            "count.followers.{$this->user_id}",
             function () {
-                return $this->count();
+                return $this->followers->count();
             }
         );
     }
-    public function getFollowingCountAttributes()
+    public function getFollowingCountAttribute()
     {
-        return \Cache::remember(
-            'count.following.' . $this->user_id,
-            now()->addSeconds(1),
+        return Cache::rememberForever(
+            "count.following.{$this->user_id}",
             function () {
-                return $this->following->count();
+                return $this->user->following->count();
             }
         );
     }

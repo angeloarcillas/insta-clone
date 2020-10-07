@@ -7,6 +7,7 @@ use App\Mail\CreatedUserMail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -46,9 +47,9 @@ class User extends Authenticatable
 
         static::created(function ($user) {
           $user->profile()->create([
-            'title' => $user->name,
+            'username' => Str::slug($user->name,'')
           ]);
-          \Mail::to($user->email)->send(new CreatedUserMail());
+        //   \Mail::to($user->email)->send(new CreatedUserMail());
          });
 
     }

@@ -47,7 +47,7 @@
                       </a>
                       <a
                         class="hover:text-teal-500"
-                        href="/post"
+                        href="/posts"
                         >Post
                       </a>
                     </nav>

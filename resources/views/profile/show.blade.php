@@ -5,7 +5,7 @@
       <div class="flex items-center">
         {{-- image --}}
         <div class="w-1/4">
-          <img src="https://picsum.photos/200"
+        <img src="{{$profile->avatar ?? 'https://picsum.photos/200'}}"
             alt="profile image"
             class="h-full w-full rounded-full">
         </div>
@@ -15,7 +15,7 @@
           class="flex-1 ml-5 text-sm text-gray-800 py-2">
           <div class="flex items-end mb-2">
             <a class="text-gray-900 font-semibold hover:underline"
-              href="#">{{ $profile->username ?? ''}}</a>
+              href="#">{{'@' . $profile->username}}</a>
 
             {{-- vue component --}}
             @auth
@@ -83,18 +83,20 @@
     <div class="rounded shadow p-4 pb-6">
       <div class="flex justify-between flex-wrap">
         @forelse ($profile->user->posts as $post)
-        <div class="p-2 pb-4 mb-4 rounded border border-teal-400" style="width: 32%;">
+        <div
+          class="p-2 pb-4 mb-3 rounded border border-teal-400"
+          style="width: 32%;">
           <img src="{{ $post->image_path }}"
-            alt="post image" class="w-full h-48 rounded">
+            alt="post image"
+            class="w-full h-48 rounded">
           <p
             class="mt-4 text-center text-xs text-gray-700 italic">
-            {{-- {{$post->caption }} --}}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium reprehenderit temporibus libero animi quos architecto? Enim nemo rem eaque id error obcaecati architecto. Rem veniam ab, soluta quo amet fugiat!
+            {{$post->caption }}
           </p>
         </div>
         @empty
         <p
-          class="text-center font-semibold text-gray-700">
+          class="font-semibold text-gray-700">
           There are currently no post
         </p>
         @endforelse
