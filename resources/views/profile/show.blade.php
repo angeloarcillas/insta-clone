@@ -67,14 +67,14 @@
     <div
       class="flex justify-center mb-6 text-sm text-gray-800">
       <button
-        class="px-3 py-1 text-white bg-teal-400
-        rounded-l border border-teal-400
-        focus:outline-none hover:bg-teal-500"
+        class="px-2 py-1 text-gray-700 font-semibold bg-gray-400
+        rounded-l border border-gray-400
+        focus:outline-none hover:bg-gray-500"
         >Post
       </button>
       <button
-        class="px-3 py-1 border rounded-r border-teal-400
-          focus:outline-none hover:bg-teal-300"
+        class="px-2 py-1 font-semibold text-gray-700 border rounded-r border-gray-400
+          focus:outline-none hover:bg-gray-500"
           >Tagged
       </button>
     </div>
