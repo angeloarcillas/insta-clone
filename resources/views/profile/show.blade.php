@@ -79,19 +79,17 @@
           focus:outline-none hover:bg-gray-500">Tagged
       </button>
     </div>
-
     {{-- post --}}
-    <div class="p-4 rounded shadow">
-      <div class="flex justify-around flex-wrap">
+    <div class="rounded shadow p-4 pb-6">
+      <div class="flex justify-between flex-wrap">
         @forelse ($profile->user->posts as $post)
-        <div>
-          {{-- {{dd($post->image_path)}} --}}
+        <div class="p-2 pb-4 mb-4 rounded border border-teal-400" style="width: 32%;">
           <img src="{{ $post->image_path }}"
-            alt="post image" class="w-full"
-            height="80%">
+            alt="post image" class="w-full h-48 rounded">
           <p
-            class="text-center text-xs text-gray-700">
-            {{$post->caption }}
+            class="mt-4 text-center text-xs text-gray-700 italic">
+            {{-- {{$post->caption }} --}}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium reprehenderit temporibus libero animi quos architecto? Enim nemo rem eaque id error obcaecati architecto. Rem veniam ab, soluta quo amet fugiat!
           </p>
         </div>
         @empty
