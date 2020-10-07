@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+      'name', 'email', 'password',
     ];
 
     /**
@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+      'password', 'remember_token',
     ];
 
     /**
@@ -43,25 +43,24 @@ class User extends Authenticatable
 
     protected static function boot()
     {
-        parent::boot();
+      parent::boot();
 
-        static::created(function ($user) {
+      static::created(function ($user) {
           $user->profile()->create([
-            'username' => Str::slug($user->name,'')
-          ]);
-        //   \Mail::to($user->email)->send(new CreatedUserMail());
-         });
-
+          'username' => Str::slug($user->name, '')
+        ]);
+          //   \Mail::to($user->email)->send(new CreatedUserMail());
+      });
     }
 
     public function profile()
     {
-        return $this->hasOne(Profile::class);
+      return $this->hasOne(Profile::class);
     }
 
     public function posts()
     {
-        return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
+      return $this->hasMany(Post::class)->latest();
     }
     public function following()
     {

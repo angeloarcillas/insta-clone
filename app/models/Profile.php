@@ -17,21 +17,6 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function posts()
-    // {
-    //     return $this->hasMany(Post::class,'id');
-    // }
-
-    // public function follow()
-    // {
-    //     $this->increment('followers_count');
-    // }
-    //
-    // public function unFollow()
-    // {
-    //     $this->decrement('followers_count');
-    // }
-
     public function followers()
     {
         return $this->belongsToMany(User::class);
@@ -39,12 +24,12 @@ class Profile extends Model
 
     public function path($append = 'index')
     {
-      return route("profile.{$append}", $this->id);
+        return route("profile.{$append}", $this->id);
     }
 
     public function getAvatarPathAttribute()
     {
-      return "http://127.0.0.1:8000/{$this->avatar}";
+        return "http://127.0.0.1:8000/{$this->avatar}";
     }
     public function getPostCountAttribute()
     {
