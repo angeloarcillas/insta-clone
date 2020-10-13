@@ -25,7 +25,7 @@ export default {
 
     methods: {
         followUser() {
-            axios.post('/follow/' + this.userId)
+            axios.post('/profile/' + this.userId + '/follow')
                 .then(response => {
                     this.status = !this.status;
                     console.log(response.data);

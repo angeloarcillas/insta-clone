@@ -1934,7 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
     followUser: function followUser() {
       var _this = this;
 
-      axios.post('/follow/' + this.userId).then(function (response) {
+      axios.post('/profile/' + this.userId + '/follow').then(function (response) {
         _this.status = !_this.status;
         console.log(response.data);
       })["catch"](function (errors) {

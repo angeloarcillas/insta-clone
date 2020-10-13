@@ -10,9 +10,12 @@ class PostController extends Controller
 {
     public function index()
     {
-        $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(10);
-        return view('post.index', compact('posts'));
+        // $users = auth()->user()->following()->pluck('profiles.user_id');
+        // $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(10);
+        // return view('post.index', compact('posts'));
+        return view('post.index', [
+            'posts' => Post::latest()->paginate(20)
+        ]);
     }
 
     public function create()
@@ -28,8 +31,9 @@ class PostController extends Controller
         ]);
 
         $attributes['image'] = $request->file('image')->store('uploads');
-        auth()->user()->posts()->create($attributes);
-        return redirect('/profile/' . auth()->user()->id);
+        $request->user()->posts()->create($attributes);
+
+        return redirect('/profile/' . $request->user()->id);
     }
 
     public function edit(Post $post)

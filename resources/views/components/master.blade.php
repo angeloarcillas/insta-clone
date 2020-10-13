@@ -1,98 +1,91 @@
 <!doctype html>
 <html
-    lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+  lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token"
-        content="{{ csrf_token() }}">
+  <!-- CSRF Token -->
+  <meta name="csrf-token"
+    content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}
-    </title>
+  <title>{{ config('app.name', 'Laravel') }}
+  </title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer>
-    </script>
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}" defer>
+  </script>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/tailwind.css') }}"
-        rel="stylesheet">
+  <!-- Styles -->
+  <link href="{{ asset('css/tailwind.css') }}"
+    rel="stylesheet">
 </head>
 
 <body>
-    <div id="app">
-        <header class="h-20 p-6 pb-4 shadow">
-            <div class="flex justify-between items-center">
+  <div id="app">
+    <header class="h-20 p-6 pb-4 shadow">
+      <div
+        class="flex justify-between items-center">
 
-                <div class="flex items-center">
-                    <h1
-                      class="mr-4 text-2xl font-semibold uppercase">
-                      Insta-Clone
-                    </h1>
-                    @auth
-                    <nav class="text-sm text-gray-700">
-                      <a
-                        class="mr-2 hover:text-teal-500"
-                        href="/home"
-                        >Home
-                      </a>
-                      <a
-                        class="mr-2 hover:text-teal-500"
-                        href="/profile/{{ auth()->user()->id }}"
-                        >Proile
-                      </a>
-                      <a
-                        class="hover:text-teal-500"
-                        href="/posts"
-                        >Post
-                      </a>
-                    </nav>
-                    @endauth
-                  </div>
+        <div class="flex items-center">
+          <h1
+            class="mr-4 text-2xl font-semibold uppercase">
+            Insta-Clone
+          </h1>
+          @auth
+          <nav class="text-sm text-gray-700">
+            <a class="mr-2 hover:text-teal-500"
+              href="/home">Home
+            </a>
+            <a class="mr-2 hover:text-teal-500"
+              href="/users">Users
+            </a>
+            <a class="mr-2 hover:text-teal-500"
+              href="/profile/{{ auth()->user()->id }}">Proile
+            </a>
+            <a class="hover:text-teal-500"
+              href="/posts">Post
+            </a>
+          </nav>
+          @endauth
+        </div>
 
-                <div class="text-sm text-gray-700">
-                  @guest
-                  <a
-                    class="mr-2 hover:text-teal-500"
-                    href="{{ route('login') }}">
-                    {{ __('Login') }}
-                  </a>
-                  <a
-                    class="hover:text-teal-500"
-                    href="{{ route('register') }}">
-                    {{ __('Register') }}
-                  </a>
-                  @endguest
+        <div class="text-sm text-gray-700">
+          @guest
+          <a class="mr-2 hover:text-teal-500"
+            href="{{ route('login') }}">
+            {{ __('Login') }}
+          </a>
+          <a class="hover:text-teal-500"
+            href="{{ route('register') }}">
+            {{ __('Register') }}
+          </a>
+          @endguest
 
-                  @auth
-                    <a
-                    class="hover:text-teal-500"
-                    href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();"
-                        >{{ __('Logout') }}
-                    </a>
+          @auth
+          <a class="hover:text-teal-500"
+            href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">{{ __('Logout') }}
+          </a>
 
-                    <form id="logout-form"
-                        action="{{ route('logout') }}"
-                        method="POST"
-                        style="display: none;">
-                        @csrf
-                    </form>
-                    @endauth
-                </div>
-            </div>
-        </header>
-        <main class="h-screen p-8">
-            <div class="p-4 container mx-auto">
-                {{ $slot }}
-            </div>
-        </main>
-    </div>
+          <form id="logout-form"
+            action="{{ route('logout') }}"
+            method="POST" style="display: none;">
+            @csrf
+          </form>
+          @endauth
+        </div>
+      </div>
+    </header>
+    <main class="h-screen p-8">
+      <div class="p-4 container mx-auto">
+        {{ $slot }}
+      </div>
+    </main>
+  </div>
 </body>
 
 </html>

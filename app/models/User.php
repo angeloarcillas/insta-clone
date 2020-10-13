@@ -47,7 +47,7 @@ class User extends Authenticatable
 
       static::created(function ($user) {
           $user->profile()->create([
-          'username' => Str::slug($user->name, '')
+          'username' => Str::slug($user->name, '.')
         ]);
           //   \Mail::to($user->email)->send(new CreatedUserMail());
       });
@@ -64,6 +64,6 @@ class User extends Authenticatable
     }
     public function following()
     {
-      return $this->belongsToMany(Profile::class);
+      return $this->belongsToMany(Profile::class)->withTimestamps();
     }
 }

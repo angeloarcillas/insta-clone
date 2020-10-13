@@ -1,19 +1,37 @@
-@extends('layouts.app')
+<x-master>
+    @forelse ($posts as $post)
+    <div class="p-2 pb-4 mb-3 rounded border border-teal-400"
+        style="width: 32%;">
+        @can('update', $post)
 
-@section('content')
-<div class="container mx-5">
-    <div class="d-flex">
+        <div class="mb-2 text-xs text-right">
+            <a href="{{$post->path('edit')}}"
+                class="text-blue-400">Edit</a>
+            <button class="text-red-400"
+                onclick="event.preventDefault();
+              document.querySelector('#postDelete-{{$post->id}}').submit()">Delete
+            </button>
 
-        @foreach ($posts as $post)
-        <a href="/post/{{ $post->id }}">
-            <div class="border border-success m-2" style="max-width:200px;">
-                <img src="  /storage/{{ $post->image }}" alt="post image" width="100%" height="80%">
-                <p class="text-center">{{$post->caption }}</p>
-            </div>
-        </a>
-        @endforeach
-        
+            <form id="postDelete-{{$post->id}}"
+                action="{{ $post->path('destroy') }}"
+                method="POST" class="hidden">
+                @csrf
+                @method('DELETE')
+            </form>
+        </div>
+        @endcan
+        <img src="{{ $post->image_path }}"
+            alt="post image"
+            class="w-full h-48 rounded">
+        <p
+            class="mt-4 text-center text-xs text-gray-700 italic">
+            {{$post->caption }}
+        </p>
     </div>
-    {{ $posts->links() }}
-</div>
-@endsection
+
+    @empty
+    <p class="font-semibold text-gray-700">
+        There are currently no post
+    </p>
+    @endforelse
+</x-master>
