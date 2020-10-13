@@ -34,16 +34,22 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
     public function update(Request $request, Post $post)
     {
-        //
-    }
+        $attributes = $request->validate([
+            'caption' => 'required|min:5'
+            ]);
+
+            $post->update($attributes);
+            return redirect('/profile/' . $post->user->id);
+        }
 
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return back();
     }
 }
